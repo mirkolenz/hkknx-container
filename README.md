@@ -17,6 +17,8 @@ services:
       - ./hkknx:/db
 ```
 
+Currently it is not possible to perform a backup when running the container as a non-root user (HKKNX creates a folder in `/tmp` which is owned by root in this image).
+
 ## Customization
 
 The container uses the following default values:
