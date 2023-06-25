@@ -6,6 +6,19 @@ on:
     branches:
       - main
 jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'mirkolenz' && github.event_name == 'schedule' }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: gautamkrishnar/keepalive-workflow@v1
+        with:
+          commit_message: "chore: keepalive"
+          committer_username: "Mirko Lenz"
+          committer_email: "mirko@mirkolenz.com"
+          time_elapsed: 50
   release:
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner == 'mirkolenz' }}
