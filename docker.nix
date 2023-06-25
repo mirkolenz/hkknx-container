@@ -3,6 +3,7 @@
   dockerTools,
   entrypoint,
   cacert,
+  coreutils,
   version,
   ...
 }: let
@@ -21,14 +22,11 @@ in
     name = "hkknx";
     tag = "latest";
     created = "now";
-    # https://shivjm.blog/perfect-docker-images-for-rust-with-nix/#4-addendum-ca-certificates-for-tls
-    # https://gist.github.com/CMCDragonkai/1ae4f4b5edeb021ca7bb1d271caca999
-    contents = [
-      cacert
-    ];
-    # Create /tmp for backup feature to work
+    # add the root certificates
+    contents = [cacert];
+    # create /tmp for backup feature to work
     extraCommands = ''
-      mkdir tmp
+      ${coreutils}/bin/mkdir -m 1777 tmp
     '';
     config = {
       entrypoint =
