@@ -8,9 +8,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'mirkolenz' && github.event_name == 'push' }}
+    if: ${{ github.repository_owner == 'mirkolenz' }}
     permissions:
-      contents: write
+      contents: read
       packages: write
     steps:
       - uses: actions/checkout@v3
