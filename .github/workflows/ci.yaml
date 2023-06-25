@@ -6,26 +6,15 @@ on:
     branches:
       - main
 jobs:
-  update-flake:
-    runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'mirkolenz' && github.event_name == 'schedule' }}
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v3
-      - uses: fregante/setup-git-user@v2
-      - uses: cachix/install-nix-action@v22
-      - run: "nix flake update --commit-lock-file --commit-lockfile-summary 'chore(deps): update flake.lock'"
-      - run: "git push"
   release:
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner == 'mirkolenz' }}
-    needs: update-flake
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
       - uses: actions/checkout@v3
+      - uses: fregante/setup-git-user@v2
       - uses: docker/setup-qemu-action@v2
         with:
           platforms: arm64
@@ -44,4 +33,7 @@ jobs:
           password: ${{ github.token }}
       # - uses: cihelper/action-semanticrelease-generic@v1
       #   id: semanticrelease
-      - run: nix run .#manifest --impure
+      - run: |
+          nix flake update --commit-lock-file --commit-lockfile-summary 'chore(deps): update flake.lock'
+          git push
+          nix run .#manifest --impure
