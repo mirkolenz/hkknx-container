@@ -2,6 +2,7 @@
   lib,
   dockerTools,
   entrypoint,
+  cacert,
   version,
   ...
 }: let
@@ -22,7 +23,7 @@ in
     created = "now";
     # https://shivjm.blog/perfect-docker-images-for-rust-with-nix/#4-addendum-ca-certificates-for-tls
     # https://gist.github.com/CMCDragonkai/1ae4f4b5edeb021ca7bb1d271caca999
-    contents = with pkgs; [
+    contents = [
       cacert
     ];
     # Create /tmp for backup feature to work
