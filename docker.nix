@@ -24,7 +24,7 @@ in
     # https://gist.github.com/CMCDragonkai/1ae4f4b5edeb021ca7bb1d271caca999
     contents = with pkgs; [
       cacert
-    ]
+    ];
     # Create /tmp for backup feature to work
     extraCommands = ''
       mkdir tmp
