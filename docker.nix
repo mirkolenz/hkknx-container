@@ -3,6 +3,7 @@
   dockerTools,
   entrypoint,
   cacert,
+  tzdata,
   coreutils,
   version,
   ...
@@ -22,8 +23,10 @@ in
     name = "hkknx";
     tag = "latest";
     created = "now";
-    # add the root certificates
-    contents = [cacert];
+    contents = [
+      cacert
+      tzdata
+    ];
     # create /tmp for backup feature to work
     extraCommands = ''
       ${coreutils}/bin/mkdir -m 1777 tmp
