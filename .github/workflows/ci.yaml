@@ -6,22 +6,21 @@ on:
     branches:
       - main
 jobs:
-  keepalive:
+  update-flake:
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner == 'mirkolenz' && github.event_name == 'schedule' }}
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      - uses: gautamkrishnar/keepalive-workflow@v1
-        with:
-          commit_message: "chore: keepalive"
-          committer_username: "Mirko Lenz"
-          committer_email: "mirko@mirkolenz.com"
-          time_elapsed: 50
+      - uses: fregante/setup-git-user@v2
+      - uses: cachix/install-nix-action@v22
+      - run: "nix flake update --commit-lock-file --commit-lockfile-summary 'chore(deps): update flake.lock'"
+      - run: "git push"
   release:
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner == 'mirkolenz' }}
+    needs: update-flake
     permissions:
       contents: read
       packages: write
