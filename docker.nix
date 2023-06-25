@@ -20,6 +20,10 @@ in
     name = "hkknx";
     tag = "latest";
     created = "now";
+    # Create /tmp for backup feature to work
+    extraCommands = ''
+      mkdir tmp
+    '';
     config = {
       entrypoint =
         [(lib.getExe entrypoint)]
