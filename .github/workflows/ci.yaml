@@ -25,9 +25,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ github.token }}
-      # - uses: cihelper/action-semanticrelease-generic@v1
-      #   id: semanticrelease
-      - run: |
+      - if: ${{ github.event_name == 'schedule' }}
+        run: |
           nix flake update --commit-lock-file --commit-lockfile-summary 'chore(deps): update flake.lock'
           git push
-          nix run .#manifest --impure
+      - run: nix run .#manifest --impure
