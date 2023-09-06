@@ -1,0 +1,15 @@
+on:
+  workflow_dispatch: ~
+  schedule:
+    - cron: "0 23 * * 0"
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: fregante/setup-git-user@v2
+      - run: |
+          nix flake update --commit-lock-file --commit-lockfile-summary 'chore(deps): update flake.lock'
+          git push
