@@ -1,4 +1,5 @@
 {
+  lib,
   stdenv,
   asset,
   ...
@@ -13,5 +14,11 @@ stdenv.mkDerivation {
   installPhase = ''
     install -D hkknx $out/bin/hkknx
   '';
-  meta.mainProgram = "hkknx";
+  meta = {
+    description = "HomeKit Bridge for KNX";
+    homepage = "https://hochgatterer.me/hkknx";
+    downloadPage = "https://github.com/brutella/hkknx-public/releases";
+    mainProgram = "hkknx";
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
+  };
 }
