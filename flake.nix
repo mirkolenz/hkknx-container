@@ -62,7 +62,7 @@
             "manifest-${name}" = flocken.legacyPackages.${system}.mkDockerManifest {
               name = "ghcr.io/" + builtins.getEnv "GITHUB_REPOSITORY";
               version = release.tag_name;
-              branch = name;
+              extraTags = [name];
               images = with self.packages; [x86_64-linux."docker-${name}" aarch64-linux."docker-${name}"];
             };
           };
