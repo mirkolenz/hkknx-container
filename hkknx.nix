@@ -13,4 +13,5 @@ stdenv.mkDerivation {
   installPhase = ''
     install -D hkknx $out/bin/hkknx
   '';
+  meta.mainProgram = "hkknx";
 }
