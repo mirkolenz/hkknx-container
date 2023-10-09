@@ -1,8 +1,8 @@
 # HKKNX Container
 
 This repository provides automated Docker image builds for [HKKNX](https://github.com/brutella/hkknx-public).
-Every night at 00:00 UTC, a GitHub action will fetch the latest stable and beta releases and update the Docker image.
-You can pin your container to a specific version or to `latest`/`beta` to always get the latest version of these channels.
+Every night at 00:00 UTC, a GitHub action will fetch the latest releases and update the Docker image.
+You can pin your container to a specific version or to `latest`/`pre` to always get the latest version of these channels.
 Images are available for `amd64` and `arm64`.
 
 Example `docker-compose.yml`:
