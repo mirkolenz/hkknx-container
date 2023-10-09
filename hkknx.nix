@@ -18,6 +18,7 @@ stdenv.mkDerivation {
     description = "HomeKit Bridge for KNX";
     homepage = "https://hochgatterer.me/hkknx";
     downloadPage = "https://github.com/brutella/hkknx-public/releases";
+    license = lib.licenses.unfree;
     mainProgram = "hkknx";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
