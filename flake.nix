@@ -34,7 +34,7 @@
         arch = arches.${system};
         releases = {
           latest = "https://api.github.com/repos/brutella/hkknx-public/releases/latest";
-          beta = "https://api.github.com/repos/brutella/hkknx-public/releases?per_page=1";
+          prerelease = "https://api.github.com/repos/brutella/hkknx-public/releases?per_page=1";
         };
         mkRelease = name: url: let
           file = builtins.fetchurl {
