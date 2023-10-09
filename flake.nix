@@ -47,10 +47,6 @@
             else apiResponse;
           asset = lib.findFirst (asset: asset.name == "hkknx-${release.tag_name}_${arch}.tar.gz") {} release.assets;
         in {
-          _module.args.pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
           packages = {
             "hkknx-${name}" = pkgs.callPackage ./hkknx.nix {
               inherit asset;
