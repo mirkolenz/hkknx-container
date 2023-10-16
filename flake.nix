@@ -68,6 +68,7 @@
         builtins.foldl'
         (x: y: lib.recursiveUpdate x y)
         {
+          formatter = pkgs.alejandra;
           packages.default = self'.packages.hkknx-latest;
           apps.manifest = {
             type = "app";

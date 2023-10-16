@@ -1,0 +1,4 @@
+- repo: https://github.com/kamadorueda/alejandra
+  rev: master
+  hooks:
+    - id: alejandra
