@@ -64,9 +64,8 @@
           };
         };
       in
-        # `//` does not work with nested attrsets
         builtins.foldl'
-        (x: y: lib.recursiveUpdate x y)
+        lib.recursiveUpdate
         {
           formatter = pkgs.alejandra;
           packages.default = self'.packages.hkknx-latest;
@@ -82,6 +81,6 @@
             });
           };
         }
-        (lib.mapAttrsToList (name: url: mkRelease name url) releases);
+        (lib.mapAttrsToList mkRelease releases);
     };
 }
