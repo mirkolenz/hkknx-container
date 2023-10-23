@@ -4,7 +4,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
     flocken = {
-      url = "github:mirkolenz/flocken/v1";
+      url = "github:mirkolenz/flocken/v2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -56,9 +56,16 @@
               entrypoint = self'.packages."hkknx-${name}";
             };
             "manifest-${name}" = flocken.legacyPackages.${system}.mkDockerManifest {
-              name = "ghcr.io/" + builtins.getEnv "GITHUB_REPOSITORY";
+              github = {
+                enable = true;
+                token = builtins.getEnv "GH_TOKEN";
+              };
               version = release.tag_name;
-              extraTags = [name];
+              tags = [name];
+              autoTags = {
+                branch = false;
+                latest = false;
+              };
               images = with self.packages; [x86_64-linux."docker-${name}" aarch64-linux."docker-${name}"];
             };
           };
