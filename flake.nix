@@ -66,6 +66,10 @@
                 branch = false;
                 latest = false;
               };
+              annotations.org.opencontainers.image = {
+                created = null;
+                revision = null;
+              };
               images = with self.packages; [x86_64-linux."docker-${name}" aarch64-linux."docker-${name}"];
             };
           };
