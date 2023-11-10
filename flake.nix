@@ -55,6 +55,8 @@
             "docker-${name}" = pkgs.callPackage ./docker.nix {
               entrypoint = self'.packages."hkknx-${name}";
             };
+          };
+          legacyPackages = {
             "manifest-${name}" = flocken.legacyPackages.${system}.mkDockerManifest {
               inherit version;
               github = {
