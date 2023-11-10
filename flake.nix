@@ -88,7 +88,7 @@
               name = "manifest";
               text = lib.concatLines (
                 lib.mapAttrsToList
-                (name: _: (lib.getExe self'.packages."manifest-${name}"))
+                (name: _: (lib.getExe self'.legacyPackages."manifest-${name}"))
                 releases
               );
             });
