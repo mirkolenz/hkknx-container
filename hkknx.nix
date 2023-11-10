@@ -38,6 +38,6 @@ in
       downloadPage = "https://github.com/brutella/hkknx-public/releases";
       mainProgram = pname;
       platforms = builtins.attrNames platforms;
-      changelog = "https://github.com/brutella/hkknx-public/releases/tag/v${version}";
+      changelog = "https://github.com/brutella/hkknx-public/releases/tag/${version}";
     };
   }
