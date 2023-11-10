@@ -25,13 +25,6 @@
         self',
         ...
       }: let
-        platforms = {
-          x86_64-linux = "linux_amd64";
-          aarch64-linux = "linux_arm64";
-          x86_64-darwin = "darwin_amd64";
-          aarch64-darwin = "darwin_arm64";
-        };
-        platform = platforms.${system};
         releases = {
           latest = "https://api.github.com/repos/brutella/hkknx-public/releases/latest";
           pre = "https://api.github.com/repos/brutella/hkknx-public/releases?per_page=1";
@@ -45,12 +38,11 @@
             if builtins.isList apiResponse
             then builtins.head apiResponse
             else apiResponse;
-          asset = lib.findFirst (asset: asset.name == "hkknx-${release.tag_name}_${platform}.tar.gz") {} release.assets;
           version = release.tag_name;
         in {
           packages = {
             "hkknx-${name}" = pkgs.callPackage ./hkknx.nix {
-              inherit asset version;
+              inherit version;
             };
             "docker-${name}" = pkgs.callPackage ./docker.nix {
               entrypoint = self'.packages."hkknx-${name}";
