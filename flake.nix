@@ -29,7 +29,7 @@
           latest = "https://api.github.com/repos/brutella/hkknx-public/releases/latest";
           pre = "https://api.github.com/repos/brutella/hkknx-public/releases?per_page=1";
         };
-        mkRelease = name: url: let
+        mkRelease = channel: url: let
           file = builtins.fetchurl {
             inherit url;
           };
@@ -41,21 +41,21 @@
           version = release.tag_name;
         in {
           packages = {
-            "hkknx-${name}" = pkgs.callPackage ./hkknx.nix {
+            "hkknx-${channel}" = pkgs.callPackage ./hkknx.nix {
               inherit version;
             };
-            "docker-${name}" = pkgs.callPackage ./docker.nix {
-              entrypoint = self'.packages."hkknx-${name}";
+            "docker-${channel}" = pkgs.callPackage ./docker.nix {
+              entrypoint = self'.packages."hkknx-${channel}";
             };
           };
           legacyPackages = {
-            "manifest-${name}" = flocken.legacyPackages.${system}.mkDockerManifest {
+            "manifest-${channel}" = flocken.legacyPackages.${system}.mkDockerManifest {
               inherit version;
               github = {
                 enable = true;
                 token = builtins.getEnv "GH_TOKEN";
               };
-              tags = [name];
+              tags = [channel];
               autoTags = {
                 branch = false;
                 latest = false;
@@ -64,7 +64,7 @@
                 created = null;
                 revision = null;
               };
-              images = with self.packages; [x86_64-linux."docker-${name}" aarch64-linux."docker-${name}"];
+              images = with self.packages; [x86_64-linux."docker-${channel}" aarch64-linux."docker-${channel}"];
             };
           };
         };
@@ -80,7 +80,7 @@
               name = "manifest";
               text = lib.concatLines (
                 lib.mapAttrsToList
-                (name: _: (lib.getExe self'.legacyPackages."manifest-${name}"))
+                (channel: _: (lib.getExe self'.legacyPackages."manifest-${channel}"))
                 releases
               );
             });
