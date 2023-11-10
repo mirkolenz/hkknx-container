@@ -5,7 +5,6 @@
   cacert,
   tzdata,
   coreutils,
-  ...
 }: let
   options = {
     autoupdate = "false";

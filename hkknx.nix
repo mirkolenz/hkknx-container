@@ -5,7 +5,6 @@
   autoPatchelfHook,
   asset,
   version,
-  ...
 }:
 stdenv.mkDerivation {
   name = "hkknx";
