@@ -46,21 +46,21 @@
             then builtins.head apiResponse
             else apiResponse;
           asset = lib.findFirst (asset: asset.name == "hkknx-${release.tag_name}_${arch}.tar.gz") {} release.assets;
+          version = release.tag_name;
         in {
           packages = {
             "hkknx-${name}" = pkgs.callPackage ./hkknx.nix {
-              inherit asset;
+              inherit asset version;
             };
             "docker-${name}" = pkgs.callPackage ./docker.nix {
-              version = release.tag_name;
               entrypoint = self'.packages."hkknx-${name}";
             };
             "manifest-${name}" = flocken.legacyPackages.${system}.mkDockerManifest {
+              inherit version;
               github = {
                 enable = true;
                 token = builtins.getEnv "GH_TOKEN";
               };
-              version = release.tag_name;
               tags = [name];
               autoTags = {
                 branch = false;
