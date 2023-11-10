@@ -5,7 +5,6 @@
   cacert,
   tzdata,
   coreutils,
-  version,
   ...
 }: let
   options = {
