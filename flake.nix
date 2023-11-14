@@ -30,9 +30,7 @@
           pre = "https://api.github.com/repos/brutella/hkknx-public/releases?per_page=1";
         };
         mkRelease = channel: url: let
-          file = builtins.fetchurl {
-            inherit url;
-          };
+          file = builtins.fetchurl url;
           apiResponse = builtins.fromJSON (builtins.readFile file);
           release =
             if builtins.isList apiResponse

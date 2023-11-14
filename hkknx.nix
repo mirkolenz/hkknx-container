@@ -18,9 +18,7 @@ in
     pname = "hkknx";
     inherit version;
 
-    src = builtins.fetchurl {
-      url = "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_${platform}.tar.gz";
-    };
+    src = builtins.fetchurl "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_${platform}.tar.gz";
 
     nativeBuildInputs = lib.optional (!stdenv.isDarwin) autoPatchelfHook;
 
