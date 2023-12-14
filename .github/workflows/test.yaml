@@ -8,6 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v8
+      - uses: DeterminateSystems/nix-installer-action@v9
       - run: nix flake check --impure
       - run: nix flake show --impure
