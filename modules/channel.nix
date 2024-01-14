@@ -21,6 +21,9 @@ in {
     self',
     ...
   }: {
+    checks = {
+      "hkknx-${channelName}" = self'.packages."hkknx-${channelName}";
+    };
     packages = {
       "hkknx-${channelName}" = pkgs.callPackage ../hkknx.nix {
         inherit version;
