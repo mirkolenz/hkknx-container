@@ -25,10 +25,10 @@ in {
       "hkknx-${channelName}" = self'.packages."hkknx-${channelName}";
     };
     packages = {
-      "hkknx-${channelName}" = pkgs.callPackage ../hkknx.nix {
+      "hkknx-${channelName}" = pkgs.callPackage ../packages/hkknx.nix {
         inherit version;
       };
-      "docker-${channelName}" = pkgs.callPackage ../docker.nix {
+      "docker-${channelName}" = pkgs.callPackage ../packages/docker.nix {
         entrypoint = self'.packages."hkknx-${channelName}";
       };
     };
