@@ -25,13 +25,7 @@ in
     extraCommands = ''
       ${coreutils}/bin/mkdir -m 1777 tmp
     '';
-    config = {
-      entrypoint =
-        [(lib.getExe entrypoint)]
-        ++ (
-          lib.mapAttrsToList
-          (key: value: "--${key}=${value}")
-          options
-        );
-    };
+    config.entrypoint =
+      (lib.singleton (lib.getExe entrypoint))
+      ++ (lib.cli.toGNUCommandLine {} options);
   }
