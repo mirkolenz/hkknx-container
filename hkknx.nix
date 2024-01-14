@@ -1,11 +1,11 @@
 # https://nixos.wiki/wiki/Packaging/Binaries
 {
-  system,
   lib,
   stdenv,
   autoPatchelfHook,
   version,
 }: let
+  inherit (stdenv.hostPlatform) system;
   platforms = {
     x86_64-linux = "linux_amd64";
     aarch64-linux = "linux_arm64";
@@ -13,12 +13,13 @@
     aarch64-darwin = "darwin_arm64";
   };
   platform = platforms.${system};
+  pname = "hkknx";
+  repo = "https://github.com/brutella/hkknx-public";
 in
-  stdenv.mkDerivation rec {
-    pname = "hkknx";
-    inherit version;
+  stdenv.mkDerivation {
+    inherit pname version;
 
-    src = builtins.fetchurl "https://github.com/brutella/hkknx-public/releases/download/${version}/${pname}-${version}_${platform}.tar.gz";
+    src = builtins.fetchurl "${repo}/releases/download/${version}/${pname}-${version}_${platform}.tar.gz";
 
     nativeBuildInputs = lib.optional (!stdenv.isDarwin) autoPatchelfHook;
 
@@ -33,9 +34,10 @@ in
     meta = {
       description = "HomeKit Bridge for KNX";
       homepage = "https://hochgatterer.me/hkknx";
-      downloadPage = "https://github.com/brutella/hkknx-public/releases";
+      downloadPage = "${repo}/releases";
       mainProgram = pname;
       platforms = builtins.attrNames platforms;
-      changelog = "https://github.com/brutella/hkknx-public/releases/tag/${version}";
+      changelog = "${repo}/releases/tag/${version}";
+      maintainers = with lib.maintainers; [mirkolenz];
     };
   }
