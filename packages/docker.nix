@@ -1,16 +1,20 @@
 {
   lib,
   dockerTools,
-  entrypoint,
   cacert,
   tzdata,
   coreutils,
-}: let
-  options = {
-    autoupdate = "false";
-    verbose = "false";
+  entrypoint,
+  entrypointOptions ? {
+    autoupdate = false;
+    verbose = false;
     db = "/db";
-    port = "8080";
+    port = 8080;
+  },
+}: let
+  mkCliOptions = lib.cli.toGNUCommandLine rec {
+    mkOptionName = k: "--${k}";
+    mkBool = k: v: [(mkOptionName k) (lib.boolToString v)];
   };
 in
   dockerTools.buildLayeredImage {
@@ -27,5 +31,5 @@ in
     '';
     config.entrypoint =
       (lib.singleton (lib.getExe entrypoint))
-      ++ (lib.cli.toGNUCommandLine {} options);
+      ++ (mkCliOptions entrypointOptions);
   }
