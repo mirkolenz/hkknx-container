@@ -29,7 +29,7 @@ in {
         inherit version;
       };
       "docker-${channelName}" = pkgs.callPackage ../packages/docker.nix {
-        entrypoint = self'.packages."hkknx-${channelName}";
+        hkknx = self'.packages."hkknx-${channelName}";
       };
     };
     legacyPackages = {

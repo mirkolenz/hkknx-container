@@ -4,8 +4,8 @@
   cacert,
   tzdata,
   coreutils,
-  entrypoint,
-  entrypointOptions ? {
+  hkknx,
+  hkknxOptions ? {
     autoupdate = false;
     verbose = false;
     db = "/db";
@@ -30,6 +30,6 @@ in
       ${coreutils}/bin/mkdir -m 1777 tmp
     '';
     config.entrypoint =
-      (lib.singleton (lib.getExe entrypoint))
-      ++ (mkCliOptions entrypointOptions);
+      (lib.singleton (lib.getExe hkknx))
+      ++ (mkCliOptions hkknxOptions);
   }
