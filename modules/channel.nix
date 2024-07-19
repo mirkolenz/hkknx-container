@@ -1,10 +1,5 @@
 { channelName, channelUrl }:
-{
-  self,
-  lib,
-  inputs,
-  ...
-}:
+{ self, inputs, ... }:
 let
   file = builtins.fetchurl channelUrl;
   apiResponse = builtins.fromJSON (builtins.readFile file);
