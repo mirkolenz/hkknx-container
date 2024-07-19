@@ -40,5 +40,6 @@ stdenv.mkDerivation {
     platforms = builtins.attrNames platforms;
     changelog = "${repo}/releases/tag/${version}";
     maintainers = with lib.maintainers; [ mirkolenz ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 }
