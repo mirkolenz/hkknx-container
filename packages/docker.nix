@@ -33,8 +33,5 @@ dockerTools.buildLayeredImage {
   extraCommands = ''
     ${coreutils}/bin/mkdir -m 1777 tmp
   '';
-  config.entrypoint = [
-    (lib.getExe hkknx)
-    defaultOptions
-  ];
+  config.entrypoint = [ (lib.getExe hkknx) ] ++ defaultOptions;
 }
