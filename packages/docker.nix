@@ -5,11 +5,12 @@
   tzdata,
   coreutils,
   hkknx,
-  autoupdate ? false,
-  db ? "/db",
-  port ? 8080,
-  verbose ? false,
-  extraOptions ? { },
+  hkknxOptions ? {
+    autoupdate = false;
+    verbose = false;
+    db = "/db";
+    port = 8080;
+  },
 }:
 let
   mkCliOptions = lib.cli.toGNUCommandLine rec {
@@ -32,17 +33,5 @@ dockerTools.buildLayeredImage {
   extraCommands = ''
     ${coreutils}/bin/mkdir -m 1777 tmp
   '';
-  config.entrypoint =
-    [ (lib.getExe hkknx) ]
-    ++ (mkCliOptions (
-      {
-        inherit
-          autoupdate
-          db
-          port
-          verbose
-          ;
-      }
-      // extraOptions
-    ));
+  config.entrypoint = (lib.singleton (lib.getExe hkknx)) ++ (mkCliOptions hkknxOptions);
 }
