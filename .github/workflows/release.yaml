@@ -23,7 +23,7 @@ jobs:
         with:
           extra-conf: |
             extra-platforms = aarch64-linux
-      - uses: DeterminateSystems/magic-nix-cache-action@v7
+      - uses: DeterminateSystems/magic-nix-cache-action@v8
       - run: nix run .#manifest --impure
         env:
           GH_TOKEN: ${{ github.token }}
