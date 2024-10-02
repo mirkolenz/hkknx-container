@@ -7,16 +7,14 @@ let
   mkChannel = channelName: channelUrl: import ./channel.nix { inherit channelName channelUrl; };
 in
 {
-  imports = lib.mapAttrsToList mkChannel channels;
+  imports = [ ./treefmt.nix ] ++ (lib.mapAttrsToList mkChannel channels);
   perSystem =
     {
       pkgs,
-      system,
       self',
       ...
     }:
     {
-      formatter = pkgs.alejandra;
       packages.default = self'.packages.hkknx-latest;
       apps.manifest = {
         type = "app";
